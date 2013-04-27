@@ -1,17 +1,17 @@
-schnauzer = require '../lib/schnauzer'
+jsonrender = require '../lib/jsonrender'
 assert    = require 'assert'
 { exec }  = require 'child_process'
 mapStream = require 'map-stream'
 
-describe 'schnauzer - mustache/handlebars', ->
+describe 'jsonrender - mustache/handlebars', ->
   describe '#compile', ->
     it 'with partial', ->
-      renderer = schnauzer.compile '<bar>{{title}}</bar>', '<foo>{{>body}}</foo>'
+      renderer = jsonrender.compile '<bar>{{title}}</bar>', '<foo>{{>body}}</foo>'
       result = renderer title: 'Titlul'
       assert.equal result, '<foo><bar>Titlul</bar></foo>'
 
     it 'without partial', ->
-      renderer = schnauzer.compile '<bar>{{title}}</bar>'
+      renderer = jsonrender.compile '<bar>{{title}}</bar>'
       result = renderer title: 'Titlul'
       assert.equal result, '<bar>Titlul</bar>'
 
@@ -22,7 +22,7 @@ describe 'schnauzer - mustache/handlebars', ->
           title: 'Titlul'
           template: "#{__dirname}/template.mustache"
           layout: "#{__dirname}/layout.mustache"
-        stream = schnauzer.stream()
+        stream = jsonrender.stream()
         (stream).pipe mapStream (html) ->
           assert.equal html, '<foo><bar>Titlul</bar>\n</foo>\n'
           do done
@@ -32,7 +32,7 @@ describe 'schnauzer - mustache/handlebars', ->
         doc =
           title: 'Titlul'
           template: "#{__dirname}/template.mustache"
-        stream = schnauzer.stream()
+        stream = jsonrender.stream()
         (stream).pipe mapStream (html) ->
           assert.equal html, '<bar>Titlul</bar>\n'
           do done
@@ -44,7 +44,7 @@ describe 'schnauzer - mustache/handlebars', ->
           title: 'Titlul'
         template = "#{__dirname}/template.mustache"
         layout = "#{__dirname}/layout.mustache"
-        stream = schnauzer.stream template, layout
+        stream = jsonrender.stream template, layout
         (stream).pipe mapStream (html) ->
           assert.equal html, '<foo><bar>Titlul</bar>\n</foo>\n'
           do done
@@ -54,7 +54,7 @@ describe 'schnauzer - mustache/handlebars', ->
         doc =
           title: 'Titlul'
         template = "#{__dirname}/template.mustache"
-        stream = schnauzer.stream template
+        stream = jsonrender.stream template
         (stream).pipe mapStream (html) ->
           assert.equal html, '<bar>Titlul</bar>\n'
           do done
@@ -65,7 +65,7 @@ describe 'schnauzer - mustache/handlebars', ->
         doc =
           title: 'Titlul'
         template = "#{__dirname}/template.mustache"
-        stream = schnauzer.stream template
+        stream = jsonrender.stream template
         (stream).pipe mapStream (html) ->
           assert.equal html, '<bar>Titlul</bar>\n'
           do done
@@ -75,7 +75,7 @@ describe 'schnauzer - mustache/handlebars', ->
     it 'with partial', (done) ->
       cmd =
         "echo \"{\\\"title\\\":\\\"Titlul\\\"}\" |
-          coffee #{__dirname}/../lib/jsonToHtml.coffee
+          coffee #{__dirname}/../lib/jsonrender_cmd.coffee
           --body #{__dirname}/template.mustache
           --layout #{__dirname}/layout.mustache"
       exec cmd, (err, stdout, stderr) ->
@@ -86,7 +86,7 @@ describe 'schnauzer - mustache/handlebars', ->
     it 'without partial', (done) ->
       cmd =
         "echo \"{\\\"title\\\":\\\"Titlul\\\"}\" |
-          coffee #{__dirname}/../lib/jsonToHtml.coffee
+          coffee #{__dirname}/../lib/jsonrender_cmd.coffee
           --body #{__dirname}/template.mustache"
       exec cmd, (err, stdout, stderr) ->
         assert.equal stdout, '<bar>Titlul</bar>\n'

@@ -7,7 +7,7 @@ Command line utility to render json in handlebars templates
 ###
 
 program   = require 'commander'
-schnauzer = require '../'
+jsonrender = require '../'
 
 program
   .description('Render json in mustache templates. If the optional
@@ -28,7 +28,7 @@ else
   process.stdin.resume()
   sourceStream = process.stdin
 
-rendererStream = schnauzer.stream program.body, program.layout
+rendererStream = jsonrender.stream program.body, program.layout
 
 sourceStream
   .pipe(rendererStream)

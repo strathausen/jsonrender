@@ -1,6 +1,6 @@
-# Schnauzer
+# Jsonrender
 
-`schnauzer` is a
+`jsonrender` is a
 
 - Stream wrapper around the mustache handlebars implementation
 - Command line tool for rendering handlebars templates
@@ -11,11 +11,11 @@
 ### As a module
 
 ``` js
-var schnauzer = require('schnauzer');
+var jsonrender = require('jsonrender');
 var template = '<foo>{{bar}}</foo>';
 var layout = '<baz>{{>body}}</baz>';
-var render = schnauzer.compile(template);
-var renderWithLayout = schnauzer.compile(template, layout);
+var render = jsonrender.compile(template);
+var renderWithLayout = jsonrender.compile(template, layout);
 
 console.log(render({ bar: 'buh' }));
 // '<foo>buh</foo>'
@@ -33,10 +33,10 @@ $ cat template.hbs
 $ cat layout.hbs
 <head></head><body>{{>body}}</body>
 
-$ echo '{title: "The Title"}' | json2html --template template.hbs
+$ echo '{title: "The Title"}' | jsonrender --template template.hbs
 <h1>The Title</h1>
 
-$ echo '{title: "The Title"}' | json2html --template template.hbs \
+$ echo '{title: "The Title"}' | jsonrender --template template.hbs \
   --layout layout.hbs
 <head></head><body><h1>The Title</h1></body> 
 ```

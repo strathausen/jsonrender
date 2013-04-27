@@ -1,9 +1,9 @@
 {
   "author": "Johann Philipp Strathausen <strathausen@gmail.com> (http://stratha.us)",
-  "name": "schnauzer",
+  "name": "jsonrender",
   "description": "Command-line and stream wrapper for Handlebars mustache implementation",
   "version": "0.2.1",
-  "homepage": "http://strathausen.github.com/schnauzer",
+  "homepage": "http://strathausen.github.com/jsonrender",
   "keywords": [
     "hbs",
     "handlebars",
@@ -12,7 +12,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com/strathausen/schnauzer.git"
+    "url": "git@github.com/strathausen/jsonrender.git"
   },
   "licenses": [
     {
@@ -24,7 +24,7 @@
     "test": "make test"
   },
   "bin": {
-    "json2html": "./bin/json2html.js"
+    "jsonrender": "./bin/jsonrender.js"
   },
   "engines": {
     "node": "~0.8.3"

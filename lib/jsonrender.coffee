@@ -11,7 +11,7 @@ hbs       = require 'handlebars'
 fs        = require 'fs'
 async     = require 'async'
 
-class Schnauzer
+class JsonRender
   # Template cache
   templates: {}
 
@@ -51,4 +51,4 @@ class Schnauzer
     , (err, { template, layout }) =>
       cb null, (@compile template, layout) content
 
-module.exports = new Schnauzer
+module.exports = new JsonRender
